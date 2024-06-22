@@ -166,3 +166,7 @@ class TestAccountService(TestCase):
         response = self.client.delete(
             f"{BASE_URL}/{account.id}", content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_method_not_allowed(self):
+        resp = self.client.delete(BASE_URL)
+        self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
