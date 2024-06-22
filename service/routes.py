@@ -91,7 +91,7 @@ def update_account(id):
         abort(status.HTTP_404_NOT_FOUND, f"Account with id '{id}' is not found")
     else:
         account.deserialize(request.get_json())
-        account.update
+        account.update()
         return account.serialize(), status.HTTP_200_OK
 
 
@@ -99,7 +99,12 @@ def update_account(id):
 # DELETE AN ACCOUNT
 ######################################################################
 
-# ... place you code here to DELETE an account ...
+@app.route("/accounts/<int:id>", methods=["DELETE"])
+def delete_account(id):
+    account = Account.find(id)
+    if account:
+        account.delete()
+    return "", status.HTTP_204_NO_CONTENT
 
 
 ######################################################################
